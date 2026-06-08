@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're In! — Finally Running on Full</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041624;
+    --gold:#C9973A;
+    --line:rgba(201,151,58,0.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--navy);
+    color:#fff;
+    min-height:100%;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hero{
+    width:100%;
+    display:block;
+  }
+  .hero img{
+    width:100%;
+    height:clamp(220px,42vh,440px);
+    object-fit:cover;
+    object-position:center 35%;
+    display:block;
+  }
+  .wrap{
+    max-width:600px;
+    margin:0 auto;
+    padding:36px 24px 56px;
+    text-align:center;
+  }
+  .eyebrow{
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(36px,10vw,56px);
+    font-weight:800;
+    letter-spacing:-0.02em;
+    line-height:1.05;
+    margin-bottom:22px;
+  }
+  .copy{
+    font-style:italic;
+    font-size:17px;
+    color:rgba(255,255,255,0.85);
+    max-width:460px;
+    margin:0 auto;
+  }
+  .copy p + p{ margin-top:16px; }
+
+  .cal{
+    margin-top:40px;
+    padding-top:34px;
+    border-top:1px solid var(--line);
+  }
+  .cal-label{
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.7);
+    margin-bottom:16px;
+  }
+  .date-main{
+    font-size:clamp(22px,5.5vw,28px);
+    font-weight:800;
+    color:var(--gold);
+    letter-spacing:-0.01em;
+  }
+  .date-time{
+    font-size:15px;
+    font-weight:500;
+    color:rgba(255,255,255,0.78);
+    margin-top:6px;
+    margin-bottom:26px;
+  }
+  .buttons{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-width:320px;
+    margin:0 auto;
+  }
+  .btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    padding:15px 20px;
+    font-family:inherit;
+    font-size:16px;
+    font-weight:600;
+    color:#fff;
+    background:transparent;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
+  }
+  .btn:hover,.btn:focus-visible{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--navy);
+    outline:none;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn svg{ width:20px;height:20px;flex:0 0 auto; }
+  .note{
+    font-size:13px;
+    color:rgba(255,255,255,0.55);
+    margin-top:22px;
+  }
+  .note strong{ color:rgba(255,255,255,0.78);font-weight:600; }
+  @media (prefers-reduced-motion:reduce){ .btn{transition:none;} }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <img src="overcomerwoman.png" alt="">
+  </div>
+
+  <main class="wrap">
+    <div class="eyebrow">Finally Running on Full</div>
+    <h1>You're In!</h1>
+    <div class="copy">
+      <p>You just said yes to feeding your cells. The start of your whole new world.</p>
+      <p>Your Zoom link is in your email and text. We'll see you Tuesday at 7:30pm ET.</p>
+    </div>
+
+    <section class="cal">
+      <div class="cal-label">Add it to your calendar</div>
+      <div class="date-main" id="date-main">Loading…</div>
+      <div class="date-time">7:30 PM Eastern</div>
+      <div class="buttons">
+        <a class="btn" id="google" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Google Calendar
+        </a>
+        <button class="btn" id="apple" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Apple Calendar
+        </button>
+        <button class="btn" id="outlook" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Outlook
+        </button>
+      </div>
+      <p class="note">Your <strong>Zoom link</strong> is included in the event.</p>
+    </section>
+  </main>
+
+<script>
+(function(){
+  "use strict";
+  var ZOOM = "https://us02web.zoom.us/j/88038576036?pwd=k6RPgGLcy85TL4ShkvKaqMa13dDXh9.1";
+  var TITLE = "Finally Running on Full Webinar";
+  var DETAILS = "Your weekly cellular nutrition webinar.\n\nJoin here: " + ZOOM + "\n\nSee you at 7:30pm ET!";
+
+  function pad(n){ return String(n).padStart(2,"0"); }
+
+  function etParts(d){
+    var f = new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",weekday:"short",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false});
+    var o = {};
+    f.formatToParts(d).forEach(function(p){ o[p.type] = p.value; });
+    return o;
+  }
+
+  var wd = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+
+  // Upcoming Tuesday 7:30pm ET. Rollover: after 8:30pm Tuesday -> next week.
+  function upcomingTuesday(){
+    var p = etParts(new Date());
+    var dow = wd[p.weekday];
+    var hour = parseInt(p.hour,10); if(hour===24) hour=0;
+    var minutes = hour*60 + parseInt(p.minute,10);
+    var add = (2 - dow + 7) % 7;
+    if(dow === 2){ add = (minutes < (20*60+30)) ? 0 : 7; }
+    var base = new Date(Date.UTC(parseInt(p.year,10), parseInt(p.month,10)-1, parseInt(p.day,10), 12,0,0));
+    base.setUTCDate(base.getUTCDate() + add);
+    return { y:base.getUTCFullYear(), m:base.getUTCMonth()+1, d:base.getUTCDate() };
+  }
+
+  var t = upcomingTuesday();
+  // The series launches Tuesday, June 30, 2026 — never offer a date before then.
+  var START = {y:2026, m:6, d:30};
+  if (t.y < START.y || (t.y===START.y && (t.m < START.m || (t.m===START.m && t.d < START.d)))) { t = START; }
+  var ymd = "" + t.y + pad(t.m) + pad(t.d);
+  var startLocal = ymd + "T193000";
+  var endLocal = ymd + "T203000";
+
+  var displayDate = new Date(Date.UTC(t.y, t.m-1, t.d, 12)).toLocaleDateString("en-US",{timeZone:"UTC",weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  document.getElementById("date-main").textContent = displayDate;
+
+  var gcal = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent(TITLE)
+    + "&dates=" + startLocal + "/" + endLocal
+    + "&ctz=America/New_York"
+    + "&details=" + encodeURIComponent(DETAILS)
+    + "&location=" + encodeURIComponent(ZOOM);
+  document.getElementById("google").setAttribute("href", gcal);
+
+  function icsContent(){
+    var dtstamp = new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z$/,"Z");
+    return [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//My Essential Oils//Finally Running on Full//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "BEGIN:VTIMEZONE",
+      "TZID:America/New_York",
+      "BEGIN:DAYLIGHT","TZOFFSETFROM:-0500","TZOFFSETTO:-0400","TZNAME:EDT","DTSTART:19700308T020000","RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU","END:DAYLIGHT",
+      "BEGIN:STANDARD","TZOFFSETFROM:-0400","TZOFFSETTO:-0500","TZNAME:EST","DTSTART:19701101T020000","RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU","END:STANDARD",
+      "END:VTIMEZONE",
+      "BEGIN:VEVENT",
+      "UID:" + ymd + "-frof@drinkvmg.com",
+      "DTSTAMP:" + dtstamp,
+      "DTSTART;TZID=America/New_York:" + startLocal,
+      "DTEND;TZID=America/New_York:" + endLocal,
+      "SUMMARY:" + TITLE,
+      "DESCRIPTION:" + DETAILS.replace(/\n/g,"\\n"),
+      "LOCATION:" + ZOOM,
+      "STATUS:CONFIRMED",
+      "BEGIN:VALARM","TRIGGER:-PT60M","ACTION:DISPLAY","DESCRIPTION:" + TITLE + " starts in 1 hour","END:VALARM",
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\r\n");
+  }
+
+  function downloadICS(){
+    var blob = new Blob([icsContent()], {type:"text/calendar;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "finally-running-on-full.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  document.getElementById("apple").addEventListener("click", downloadICS);
+  document.getElementById("outlook").addEventListener("click", downloadICS);
+})();
+</script>
+</body>
+</html>
