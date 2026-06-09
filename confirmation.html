@@ -24,20 +24,29 @@
     -webkit-font-smoothing:antialiased;
   }
   .hero{
+    position:relative;
     width:100%;
-    display:block;
+    line-height:0;
   }
   .hero img{
     width:100%;
-    height:clamp(220px,42vh,440px);
+    height:clamp(240px,42vh,420px);
     object-fit:cover;
-    object-position:center 35%;
+    object-position:center 32%;
     display:block;
   }
+  .hero::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:42%;
+    background:linear-gradient(to bottom, rgba(4,22,36,0) 0%, var(--navy) 100%);
+    pointer-events:none;
+  }
   .wrap{
-    max-width:600px;
+    max-width:680px;
     margin:0 auto;
-    padding:36px 24px 56px;
+    padding:24px 24px 44px;
     text-align:center;
   }
   .eyebrow{
@@ -53,20 +62,20 @@
     font-weight:800;
     letter-spacing:-0.02em;
     line-height:1.05;
-    margin-bottom:22px;
+    margin-bottom:16px;
   }
   .copy{
     font-style:italic;
     font-size:17px;
     color:rgba(255,255,255,0.85);
-    max-width:460px;
+    max-width:620px;
     margin:0 auto;
   }
-  .copy p + p{ margin-top:16px; }
+  .copy p + p{ margin-top:12px; }
 
   .cal{
-    margin-top:40px;
-    padding-top:34px;
+    margin-top:24px;
+    padding-top:24px;
     border-top:1px solid var(--line);
   }
   .cal-label{
@@ -88,7 +97,7 @@
     font-weight:500;
     color:rgba(255,255,255,0.78);
     margin-top:6px;
-    margin-bottom:26px;
+    margin-bottom:18px;
   }
   .buttons{
     display:flex;
