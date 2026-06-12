@@ -220,7 +220,7 @@
 
   var t = upcomingTuesday();
   // The series launches Tuesday, June 30, 2026 — never offer a date before then.
-  var START = {y:2026, m:6, d:30};
+  var START = {y:2026, m:7, d:14};
   if (t.y < START.y || (t.y===START.y && (t.m < START.m || (t.m===START.m && t.d < START.d)))) { t = START; }
   var ymd = "" + t.y + pad(t.m) + pad(t.d);
   var startLocal = ymd + "T193000";
