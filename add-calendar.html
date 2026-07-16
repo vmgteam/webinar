@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adding your event…</title>
+<style>
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+       background:#041624;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:24px;}
+  .card{max-width:520px}
+  h1{color:#C9973A;font-size:1.6em;margin:0 0 12px}
+  p{font-size:1.05em;line-height:1.5;color:#e8e8e8;margin:8px 0}
+  a{color:#C9973A;font-weight:600}
+  .btn{display:inline-block;margin-top:18px;padding:12px 22px;border:1px solid #C9973A;border-radius:8px;color:#C9973A;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Finally Running on Full</h1>
+  <p id="line">Adding the next live event to your calendar…</p>
+  <p id="datetxt"></p>
+  <a id="manual" class="btn" href="#" style="display:none">Tap to add it</a>
+</div>
+<script>
+(function(){
+  // Compute the upcoming Tuesday 7:30 PM Eastern (rolls after 8:30 PM Tue)
+  var now = new Date();
+  var et = new Date(now.toLocaleString('en-US',{timeZone:'America/New_York'}));
+  var day = et.getDay();              // 0=Sun..2=Tue
+  var add = (2 - day + 7) % 7;
+  if (day===2 && (et.getHours()>20 || (et.getHours()===20 && et.getMinutes()>=30))) add = 7;
+  var d = new Date(et); d.setDate(et.getDate()+add);
+  var Y=d.getFullYear(), M=d.getMonth()+1, D=d.getDate();
+  function p(n){return (n<10?'0':'')+n;}
+  // Eastern is UTC-4 (EDT) mid-Mar..early-Nov, else UTC-5 (EST). Approximate by month for the label + offset.
+  var edt = (M>3 && M<11) || (M===3 && D>=8) || (M===11 && D<1); // roughly DST window
+  var offset = edt ? 4 : 5;           // hours to add to get UTC from ET
+  // 7:30 PM ET -> UTC
+  var startUTC = new Date(Date.UTC(Y, M-1, D, 19+offset, 30, 0));
+  var endUTC   = new Date(Date.UTC(Y, M-1, D, 21+offset, 0, 0));
+  function z(dt){return dt.getUTCFullYear()+p(dt.getUTCMonth()+1)+p(dt.getUTCDate())+'T'+p(dt.getUTCHours())+p(dt.getUTCMinutes())+'00Z';}
+  var ZOOM='https://us02web.zoom.us/j/88038576036?pwd=k6RPgGLcy85TL4ShkvKaqMa13dDXh9.1';
+  var TITLE='Finally Running on Full (Live Webinar)';
+  var DETAILS='Your live cellular nutrition webinar with Charlie. Join here:\n'+ZOOM;
+
+  // Human label
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function ord(n){var s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+  document.getElementById('datetxt').textContent = 'Tuesday, '+months[M-1]+' '+ord(D)+', 7:30 PM ET';
+
+  // Build an .ics file (works for Apple, Outlook, Google-import)
+  var ics=[
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//VMG//Webinar//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:frof-'+z(startUTC)+'@vmgteam',
+    'DTSTAMP:'+z(new Date()),
+    'DTSTART:'+z(startUTC),
+    'DTEND:'+z(endUTC),
+    'SUMMARY:'+TITLE,
+    'DESCRIPTION:'+DETAILS.replace(/\n/g,'\\n'),
+    'LOCATION:'+ZOOM,
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+
+  var isApple = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
+  var gcal='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(TITLE)+
+           '&dates='+z(startUTC)+'/'+z(endUTC)+'&details='+encodeURIComponent(DETAILS)+'&location='+encodeURIComponent(ZOOM);
+
+  var manual=document.getElementById('manual');
+  // Apple/iOS/Mac -> deliver .ics (adds straight to Apple Calendar). Others -> Google Calendar.
+  if(isApple){
+    var blob=new Blob([ics],{type:'text/calendar'});
+    var url=URL.createObjectURL(blob);
+    manual.href=url; manual.setAttribute('download','finally-running-on-full.ics');
+    document.getElementById('line').textContent='Your calendar file is ready.';
+    manual.style.display='inline-block';
+    setTimeout(function(){ manual.click(); },400);
+  } else {
+    document.getElementById('line').textContent='Opening your calendar…';
+    manual.href=gcal; manual.textContent='Add to Google Calendar'; manual.style.display='inline-block';
+    setTimeout(function(){ window.location.href=gcal; },500);
+  }
+})();
+</script>
+</body>
+</html>
