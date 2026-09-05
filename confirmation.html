@@ -57,7 +57,34 @@
     background:#000;
     box-shadow:0 10px 34px rgba(0,0,0,0.55);
     display:block;
+    overflow:hidden;
   }
+  .hero-video video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .vplay{
+    position:absolute;
+    left:50%;
+    bottom:12%;
+    transform:translateX(-50%);
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    border:none;
+    background:var(--gold);
+    color:#041624;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(0,0,0,0.45);
+    padding:0;
+  }
+  .vplay svg{ width:30px;height:30px;fill:currentColor;margin-left:3px; }
+  .vplay.hide{ display:none; }
   .wrap{
     max-width:680px;
     margin:0 auto;
@@ -205,9 +232,14 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
 <body>
   <div class="hero">
     <img src="overcomerwoman.png" alt="">
-    <video class="hero-video" controls playsinline preload="none" poster="posterframe.png">
-      <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/Confirmation%20Video.mp4" type="video/mp4">
-    </video>
+    <div class="hero-video">
+      <video id="cvid" controls playsinline preload="none" poster="posterframe.png">
+        <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/Confirmation%20Video.mp4" type="video/mp4">
+      </video>
+      <button class="vplay" id="vplay" aria-label="Play video">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
   </div>
 
   <main class="wrap">
@@ -332,6 +364,15 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
 
   document.getElementById("apple").addEventListener("click", downloadICS);
   document.getElementById("outlook").addEventListener("click", downloadICS);
+})();
+</script>
+<script>
+(function(){
+  var v=document.getElementById('cvid'), b=document.getElementById('vplay');
+  if(!v||!b) return;
+  b.addEventListener('click',function(){ v.play(); });
+  v.addEventListener('play',function(){ b.classList.add('hide'); });
+  v.addEventListener('pause',function(){ if(v.currentTime===0) b.classList.remove('hide'); });
 })();
 </script>
 </body>
