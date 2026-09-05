@@ -68,22 +68,23 @@
   .vplay{
     position:absolute;
     left:50%;
-    bottom:8%;
-    transform:translateX(-50%);
-    width:56px;
-    height:56px;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:clamp(62px,6vw,104px);
+    height:clamp(62px,6vw,104px);
     border-radius:50%;
     border:none;
-    background:var(--gold);
-    color:#041624;
+    background:rgba(201,151,58,0.62);
+    backdrop-filter:blur(2px);
+    color:rgba(255,255,255,0.92);
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    box-shadow:0 6px 18px rgba(0,0,0,0.45);
+    box-shadow:0 4px 14px rgba(0,0,0,0.3);
     padding:0;
   }
-  .vplay svg{ width:30px;height:30px;fill:currentColor;margin-left:3px; }
+  .vplay svg{ width:46%;height:46%;fill:currentColor;margin-left:6%; }
   .vplay.hide{ display:none; }
   .wrap{
     max-width:680px;
