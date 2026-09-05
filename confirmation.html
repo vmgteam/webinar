@@ -68,7 +68,7 @@
   .vplay{
     position:absolute;
     left:50%;
-    bottom:12%;
+    bottom:8%;
     transform:translateX(-50%);
     width:56px;
     height:56px;
@@ -233,7 +233,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   <div class="hero">
     <img src="overcomerwoman.png" alt="">
     <div class="hero-video">
-      <video id="cvid" controls playsinline preload="none" poster="posterframe.png">
+      <video id="cvid" playsinline preload="none" poster="posterframe.png">
         <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/Confirmation%20Video.mp4" type="video/mp4">
       </video>
       <button class="vplay" id="vplay" aria-label="Play video">
@@ -370,9 +370,9 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
 (function(){
   var v=document.getElementById('cvid'), b=document.getElementById('vplay');
   if(!v||!b) return;
-  b.addEventListener('click',function(){ v.play(); });
+  b.addEventListener('click',function(){ v.controls=true; v.play(); });
   v.addEventListener('play',function(){ b.classList.add('hide'); });
-  v.addEventListener('pause',function(){ if(v.currentTime===0) b.classList.remove('hide'); });
+  v.addEventListener('ended',function(){ v.controls=false; v.currentTime=0; b.classList.remove('hide'); });
 })();
 </script>
 </body>
