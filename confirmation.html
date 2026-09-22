@@ -182,6 +182,17 @@
   }
   .note strong{ color:rgba(255,255,255,0.78);font-weight:600; }
   @media (prefers-reduced-motion:reduce){ .btn{transition:none;} }
+  .watch{ margin-top:22px; }
+  .watch-line{ font-size:16px; color:rgba(255,255,255,0.85); margin-bottom:12px; }
+  .btn-watch{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    max-width:320px; width:100%; padding:16px 22px; font-family:inherit; font-size:20px; font-weight:800;
+    color:var(--navy); background:var(--gold); border:1.5px solid var(--gold); border-radius:10px;
+    text-decoration:none; transition:transform .12s ease, filter .18s ease;
+  }
+  .btn-watch:hover,.btn-watch:focus-visible{ filter:brightness(1.08); outline:2px solid #fff; outline-offset:2px; }
+  .btn-watch svg{ width:20px; height:20px; fill:currentColor; }
+  @media (prefers-reduced-motion:reduce){ .btn-watch{transition:none;} }
   @media (max-width:520px){
     .hero img{ height:clamp(225px,34vh,300px); object-position:center 26%; }
     .hero-video{ height:78%; }
@@ -234,7 +245,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     <img src="overcomerwoman.png" alt="">
     <div class="hero-video">
       <video id="cvid" playsinline preload="none" poster="posterframe.png">
-        <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/Confirmation%20Video.mp4" type="video/mp4">
+        <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/confirmation-video-2.mp4" type="video/mp4">
       </video>
       <button class="vplay" id="vplay" aria-label="Play video">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -243,15 +254,22 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   </div>
 
   <main class="wrap">
-    <div class="eyebrow">Finally Running on Full</div>
     <h1>You're In!</h1>
     <div class="copy">
       <p>You just said yes to feeding your cells. The start of your whole new world.</p>
       <p>Your Zoom link is in your email and text.</p>
     </div>
 
+    <section class="watch">
+      <p class="watch-line" id="watch-line">Don't want to wait until Tuesday? Watch the short version now.</p>
+      <a class="btn-watch" id="watch-btn" href="watch.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        Watch Now
+      </a>
+    </section>
+
     <section class="cal">
-      <div class="cal-label">Add it to your calendar</div>
+      <div class="cal-label">Joining us live? Add it to your calendar</div>
       <div class="date-main" id="date-main">Loading…</div>
       <div class="date-time">7:30 PM Eastern</div>
       <div class="buttons">
@@ -373,6 +391,19 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   b.addEventListener('click',function(){ v.controls=true; v.play(); });
   v.addEventListener('play',function(){ b.classList.add('hide'); });
   v.addEventListener('ended',function(){ v.controls=false; v.currentTime=0; b.classList.remove('hide'); });
+})();
+</script>
+<script>
+(function(){
+  var b=document.getElementById('watch-btn');
+  if(b) b.setAttribute('href','watch.html'+window.location.search);
+  try{
+    var o={};
+    new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false})
+      .formatToParts(new Date()).forEach(function(p){o[p.type]=p.value;});
+    var h=parseInt(o.hour,10)%24, mins=h*60+parseInt(o.minute,10);
+    if(o.weekday==='Tue' && mins<(20*60+30)) document.getElementById('watch-line').textContent="Don't want to wait until tonight? Watch the short version now.";
+  }catch(e){}
 })();
 </script>
 </body>
