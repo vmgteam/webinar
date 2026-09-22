@@ -50,18 +50,21 @@
   .player video{ width:100%; height:100%; display:block; background:#000; }
   .playbtn{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    width:clamp(68px,9vw,96px); height:clamp(68px,9vw,96px);
-    border:none; border-radius:50%; padding:0; cursor:pointer; color:var(--navy);
-    background:linear-gradient(160deg, var(--gold-lt), var(--gold));
-    box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 0 10px rgba(201,151,58,0.16);
+    width:clamp(76px,11vw,118px); height:clamp(76px,11vw,118px);
+    border-radius:50%; padding:0; cursor:pointer;
+    background:transparent;
+    border:clamp(5px,0.7vw,8px) solid var(--gold-lt);
+    color:var(--gold-lt);
+    box-shadow:0 6px 24px rgba(0,0,0,0.45), inset 0 0 12px rgba(0,0,0,0.25);
     display:flex; align-items:center; justify-content:center;
-    transition:transform .16s ease, box-shadow .16s ease;
+    transition:transform .16s ease, border-color .16s ease, color .16s ease;
   }
   .playbtn:hover,.playbtn:focus-visible{
     transform:translate(-50%,-50%) scale(1.06);
-    box-shadow:0 12px 34px rgba(0,0,0,0.55), 0 0 0 14px rgba(201,151,58,0.20); outline:none;
+    border-color:#F0CE84; color:#F0CE84; outline:none;
   }
-  .playbtn svg{ width:42%; height:42%; fill:currentColor; margin-left:7%; }
+  .playbtn svg{ width:40%; height:40%; fill:currentColor;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,0.45)); }
   .playbtn.hide{ display:none; }
 
   .meta{
@@ -171,7 +174,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
           <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/evergreen-vmg.mp4" type="video/mp4">
         </video>
         <button class="playbtn" id="playbtn" type="button" aria-label="Play video">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 5v14l11-7z"/></svg>
         </button>
       </div>
     </div>
