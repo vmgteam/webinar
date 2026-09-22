@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Now — Finally Running on Full</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041624;
+    --navy-2:#0a2336;
+    --gold:#C9973A;
+    --gold-soft:rgba(201,151,58,0.14);
+    --line:rgba(201,151,58,0.35);
+    --text-2:rgba(255,255,255,0.82);
+    --text-3:rgba(255,255,255,0.6);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--navy);
+    color:#fff;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:880px; margin:0 auto; padding:28px 20px 56px; }
+  header{ text-align:center; margin-bottom:22px; }
+  .series{ font-size:15px; font-weight:600; color:var(--gold); margin-bottom:6px; }
+  h1{ font-size:clamp(26px,6vw,40px); font-weight:800; letter-spacing:-0.02em; line-height:1.1; }
+  .player{
+    position:relative; width:100%; aspect-ratio:16/9; background:#000;
+    border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,0.5);
+  }
+  .player video{ width:100%; height:100%; display:block; background:#000; }
+  .heads-up{
+    margin:18px auto 0; max-width:620px; text-align:center;
+    font-size:16px; color:var(--text-2); font-style:italic;
+  }
+
+  /* Offer */
+  .offer{ display:none; margin-top:32px; padding-top:28px; border-top:1px solid var(--line); }
+  .offer.show{ display:block; animation:rise .5s ease-out; }
+  @keyframes rise{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+  .offer h2{ text-align:center; font-size:clamp(22px,5vw,30px); font-weight:800; letter-spacing:-0.01em; margin-bottom:8px; }
+  .offer .sub{ text-align:center; color:var(--text-2); font-size:16px; margin-bottom:22px; }
+
+  .switch{
+    display:none; width:max-content; max-width:100%; margin:0 auto 24px;
+    padding:4px; border:1.5px solid var(--line); border-radius:999px; background:var(--navy-2);
+  }
+  .switch.show{ display:flex; }
+  .switch button{
+    font-family:inherit; font-size:15px; font-weight:600; color:var(--text-2);
+    background:transparent; border:none; border-radius:999px; padding:10px 20px; cursor:pointer;
+  }
+  .switch button[aria-pressed="true"]{ background:var(--gold); color:var(--navy); }
+  .switch button:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+
+  .plans{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .plan{
+    border:1.5px solid var(--line); border-radius:14px; padding:22px 20px;
+    display:flex; flex-direction:column; background:rgba(255,255,255,0.02);
+  }
+  .plan.primary{ border-color:var(--gold); background:var(--gold-soft); }
+  .plan h3{ font-size:20px; font-weight:800; margin-bottom:4px; }
+  .plan .what{ color:var(--text-2); font-size:15px; margin-bottom:14px; flex:1; }
+  .plan .price{ font-size:30px; font-weight:800; color:var(--gold); letter-spacing:-0.01em; }
+  .plan .per{ font-size:14px; color:var(--text-3); margin-bottom:16px; min-height:21px; }
+  .buy{
+    display:block; text-align:center; text-decoration:none; font-weight:700; font-size:17px;
+    padding:15px 18px; border-radius:10px; border:1.5px solid var(--gold);
+    color:var(--gold); background:transparent; transition:background .18s ease, color .18s ease;
+  }
+  .plan.primary .buy{ background:var(--gold); color:var(--navy); }
+  .buy:hover, .buy:focus-visible{ background:var(--gold); color:var(--navy); outline:none; }
+  .fine{ text-align:center; font-size:14px; color:var(--text-3); margin-top:18px; min-height:21px; }
+  .help{ text-align:center; font-size:15px; color:var(--text-2); margin-top:10px; }
+
+  @media (max-width:640px){
+    .wrap{ padding:18px 14px 44px; }
+    .plans{ grid-template-columns:1fr; }
+    .player{ border-radius:8px; }
+  }
+  @media (prefers-reduced-motion:reduce){ .offer.show{ animation:none; } .buy{ transition:none; } }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1028563059576794');
+fbq('init', '732118241730369');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="series">Finally Running on Full</div>
+      <h1>The short version</h1>
+    </header>
+
+    <div class="player">
+      <video id="evid" controls playsinline preload="metadata">
+        <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/evergreen-vmg.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <p class="heads-up" id="headsup">Stick around. Ordering options will appear below the video, including wholesale pricing when you purchase through this page.</p>
+
+    <section class="offer" id="offer" aria-live="polite">
+      <h2>Two ways to begin</h2>
+      <p class="sub">Wholesale pricing when you purchase through this page.</p>
+
+      <div class="switch" id="switch" role="group" aria-label="Order type">
+        <button type="button" data-mode="monthly" aria-pressed="true">Monthly (earn rewards)</button>
+        <button type="button" data-mode="once" aria-pressed="false">One-time</button>
+      </div>
+
+      <div class="plans">
+        <div class="plan primary">
+          <h3>The Full System</h3>
+          <p class="what">VMG+, EO Mega+, and PB Restore working together.</p>
+          <div class="price">$149.50</div>
+          <div class="per" data-per></div>
+          <a class="buy" id="buy-full" target="_blank" rel="noopener">Get The Full System</a>
+        </div>
+        <div class="plan">
+          <h3>The Foundation</h3>
+          <p class="what">Where it all starts. VMG+ on its own.</p>
+          <div class="price">$89.50</div>
+          <div class="per" data-per></div>
+          <a class="buy" id="buy-vmg" target="_blank" rel="noopener">Get The Foundation</a>
+        </div>
+      </div>
+
+      <p class="fine" id="fine"></p>
+      <p class="help" id="help"></p>
+    </section>
+  </main>
+
+<script>
+(function(){
+  "use strict";
+  var REVEAL_AT = 1375; // 22:55 in the video
+  var STORE_KEY = "frof_offer_seen";
+
+  // Charlie's links: used when someone registered without a leader link
+  var DEFAULTS = {
+    full: "https://link.doterra.com/HFULOR",
+    vmg:  "https://link.doterra.com/Cy9C3p",
+    fullSub: "https://link.doterra.com/dQHmLq",
+    vmgSub:  "https://link.doterra.com/aKS6l8",
+    leader: "Charlie"
+  };
+
+  var q = new URLSearchParams(window.location.search);
+  function safe(u){ return (u && /^https:\/\//i.test(u)) ? u : ""; }
+
+  var ref = (q.get("ref") || "").toLowerCase();
+  var isTeam = ref === "team";
+
+  var links;
+  var lf = safe(q.get("full_system_link")), lv = safe(q.get("vmg_link"));
+  if (lf && lv) {
+    var sf = safe(q.get("full_system_sub")), sv = safe(q.get("vmg_sub"));
+    links = { full: lf, vmg: lv, fullSub: (sf && sv) ? sf : "", vmgSub: (sf && sv) ? sv : "",
+              leader: q.get("leader_name") || "your support person" };
+  } else {
+    links = DEFAULTS;
+  }
+  var hasSub = !!(links.fullSub && links.vmgSub);
+
+  var offer = document.getElementById("offer");
+  var headsup = document.getElementById("headsup");
+  var sw = document.getElementById("switch");
+  var buyFull = document.getElementById("buy-full");
+  var buyVmg = document.getElementById("buy-vmg");
+  var fine = document.getElementById("fine");
+  var pers = document.querySelectorAll("[data-per]");
+
+  document.getElementById("help").textContent =
+    "Not sure which fits? Reply to your confirmation text or email and " + links.leader + " will help you choose.";
+
+  function setMode(mode){
+    var monthly = mode === "monthly" && hasSub;
+    buyFull.href = monthly ? links.fullSub : links.full;
+    buyVmg.href  = monthly ? links.vmgSub  : links.vmg;
+    Array.prototype.forEach.call(sw.querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-mode") === (monthly ? "monthly" : "once") ? "true" : "false");
+    });
+    Array.prototype.forEach.call(pers, function(p){ p.textContent = monthly ? "per month, earning rewards points" : "one-time order"; });
+    fine.textContent = monthly
+      ? "Monthly orders ship automatically through doTERRA Loyalty Rewards. Change or cancel anytime."
+      : "";
+  }
+
+  if (hasSub) {
+    sw.classList.add("show");
+    sw.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if (b) setMode(b.getAttribute("data-mode"));
+    });
+    setMode("monthly");
+  } else {
+    setMode("once");
+  }
+
+  function track(name){ try { if (window.fbq) fbq("track", name); } catch(e){} }
+  buyFull.addEventListener("click", function(){ track("InitiateCheckout"); });
+  buyVmg.addEventListener("click", function(){ track("InitiateCheckout"); });
+
+  function reveal(){
+    if (offer.classList.contains("show")) return;
+    offer.classList.add("show");
+    headsup.style.display = "none";
+    try { localStorage.setItem(STORE_KEY, "1"); } catch(e){}
+    track("ViewContent");
+  }
+
+  if (isTeam) {
+    headsup.style.display = "none";
+    return;
+  }
+
+  var seen = false;
+  try { seen = localStorage.getItem(STORE_KEY) === "1"; } catch(e){}
+  if (seen) { offer.classList.add("show"); headsup.style.display = "none"; }
+
+  var v = document.getElementById("evid");
+  v.addEventListener("timeupdate", function(){ if (v.currentTime >= REVEAL_AT) reveal(); });
+  v.addEventListener("ended", reveal);
+})();
+</script>
+</body>
+</html>
