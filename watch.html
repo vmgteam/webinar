@@ -34,6 +34,20 @@
     border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,0.5);
   }
   .player video{ width:100%; height:100%; display:block; background:#000; }
+  .playbtn{
+    position:absolute; inset:0; width:100%; height:100%; border:none; cursor:pointer;
+    background:rgba(4,22,36,0.28); display:flex; align-items:center; justify-content:center;
+    transition:background .18s ease;
+  }
+  .playbtn:hover, .playbtn:focus-visible{ background:rgba(4,22,36,0.14); outline:none; }
+  .playbtn span{
+    width:clamp(64px,14vw,96px); height:clamp(64px,14vw,96px); border-radius:50%;
+    background:var(--gold); box-shadow:0 8px 28px rgba(0,0,0,0.45);
+    display:flex; align-items:center; justify-content:center; transition:transform .18s ease;
+  }
+  .playbtn:hover span, .playbtn:focus-visible span{ transform:scale(1.06); }
+  .playbtn svg{ width:38%; height:38%; fill:var(--navy); margin-left:8%; }
+  .playbtn.hide{ display:none; }
   .heads-up{
     margin:18px auto 0; max-width:620px; text-align:center;
     font-size:16px; color:var(--text-2); font-style:italic;
@@ -112,9 +126,12 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     </header>
 
     <div class="player">
-      <video id="evid" controls playsinline preload="metadata">
+      <video id="evid" playsinline preload="metadata">
         <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/evergreen-vmg.mp4" type="video/mp4">
       </video>
+      <button class="playbtn" id="playbtn" type="button" aria-label="Play the video">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
     </div>
 
     <p class="heads-up" id="headsup">Stick around. Ordering options will appear below the video, including wholesale pricing when you purchase through this page.</p>
@@ -227,6 +244,16 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     try { localStorage.setItem(STORE_KEY, "1"); } catch(e){}
     track("ViewContent");
   }
+
+  var vid = document.getElementById("evid");
+  var playbtn = document.getElementById("playbtn");
+  playbtn.addEventListener("click", function(){
+    vid.setAttribute("controls", "");
+    playbtn.classList.add("hide");
+    var p = vid.play();
+    if (p && p.catch) p.catch(function(){});
+  });
+  vid.addEventListener("play", function(){ vid.setAttribute("controls",""); playbtn.classList.add("hide"); });
 
   if (isTeam) {
     headsup.style.display = "none";
