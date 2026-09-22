@@ -260,7 +260,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     </div>
 
     <section class="watch">
-      <p class="watch-line" id="watch-line">Don't want to wait until Tuesday? Watch the short version now.</p>
+      <p class="watch-line" id="watch-line">Don't want to wait until Tuesday?</p>
       <a class="btn-watch" id="watch-btn" href="watch.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         Watch Now
@@ -401,7 +401,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false})
       .formatToParts(new Date()).forEach(function(p){o[p.type]=p.value;});
     var h=parseInt(o.hour,10)%24, mins=h*60+parseInt(o.minute,10);
-    if(o.weekday==='Tue' && mins<(20*60+30)) document.getElementById('watch-line').textContent="Don't want to wait until tonight? Watch the short version now.";
+    if(o.weekday==='Tue' && mins<(20*60+30)) document.getElementById('watch-line').textContent="Don't want to wait until tonight?";
   }catch(e){}
 })();
 </script>
