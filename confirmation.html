@@ -257,7 +257,6 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     <h1>You're In!</h1>
     <div class="copy">
       <p>You just said yes to feeding your cells. The start of your whole new world.</p>
-      <p>Your Zoom link is in your email and text.</p>
     </div>
 
     <section class="watch">
@@ -329,7 +328,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   var startLocal = ymd + "T193000";
   var endLocal = ymd + "T203000";
 
-  var displayDate = new Date(Date.UTC(t.y, t.m-1, t.d, 12)).toLocaleDateString("en-US",{timeZone:"UTC",weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  var displayDate = new Date(Date.UTC(t.y, t.m-1, t.d, 12)).toLocaleDateString("en-US",{timeZone:"UTC",weekday:"long",month:"short",day:"numeric",year:"numeric"});
   document.getElementById("date-main").textContent = displayDate;
 
   var gcal = "https://calendar.google.com/calendar/render?action=TEMPLATE"
