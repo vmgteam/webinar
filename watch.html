@@ -50,21 +50,17 @@
   .player video{ width:100%; height:100%; display:block; background:#000; }
   .playbtn{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    width:clamp(76px,11vw,118px); height:clamp(76px,11vw,118px);
-    border-radius:50%; padding:0; cursor:pointer;
-    background:transparent;
-    border:clamp(9px,1.4vw,14px) solid var(--gold-lt);
-    color:var(--gold-lt);
-    box-shadow:0 6px 24px rgba(0,0,0,0.45), inset 0 0 12px rgba(0,0,0,0.25);
+    width:clamp(70px,8vw,104px); height:clamp(70px,8vw,104px);
+    border-radius:50%; border:none; padding:0; cursor:pointer;
+    background:rgba(255,255,255,0.68); backdrop-filter:blur(2px); color:var(--navy);
+    box-shadow:0 6px 20px rgba(0,0,0,0.38);
     display:flex; align-items:center; justify-content:center;
-    transition:transform .16s ease, border-color .16s ease, color .16s ease;
+    transition:background .16s ease, transform .16s ease;
   }
   .playbtn:hover,.playbtn:focus-visible{
-    transform:translate(-50%,-50%) scale(1.06);
-    border-color:#F0CE84; color:#F0CE84; outline:none;
+    background:rgba(255,255,255,0.86); transform:translate(-50%,-50%) scale(1.05); outline:none;
   }
-  .playbtn svg{ width:58%; height:58%; fill:currentColor;
-    filter:drop-shadow(0 2px 6px rgba(0,0,0,0.45)); }
+  .playbtn svg{ width:46%; height:46%; fill:currentColor; }
   .playbtn.hide{ display:none; }
 
   .meta{
@@ -165,7 +161,7 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   <main class="wrap">
     <header>
       <div class="eyebrow">Finally Running on Full</div>
-      <h1>Feed your cells.<br>Get your life back.</h1>
+      <h1>Feed your cells.<br>Watch your world change.</h1>
     </header>
 
     <div class="stage">
