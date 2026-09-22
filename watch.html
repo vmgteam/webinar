@@ -3,96 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watch Now — Finally Running on Full</title>
+<title>Finally Running on Full</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#041624;
-    --navy-2:#0a2336;
     --gold:#C9973A;
-    --gold-soft:rgba(201,151,58,0.14);
-    --line:rgba(201,151,58,0.35);
-    --text-2:rgba(255,255,255,0.82);
-    --text-3:rgba(255,255,255,0.6);
+    --gold-lt:#E2B75F;
+    --line:rgba(201,151,58,0.30);
+    --text-2:rgba(255,255,255,0.80);
+    --text-3:rgba(255,255,255,0.55);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--navy);}
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    background:var(--navy);
-    color:#fff;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
+    color:#fff; line-height:1.55; -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(900px 420px at 50% -120px, rgba(201,151,58,0.16), transparent 70%),
+      radial-gradient(700px 500px at 110% 40%, rgba(31,120,120,0.14), transparent 70%);
+    background-repeat:no-repeat;
   }
-  .wrap{ max-width:880px; margin:0 auto; padding:28px 20px 56px; }
-  header{ text-align:center; margin-bottom:22px; }
-  h1{ font-size:clamp(26px,6vw,40px); font-weight:800; letter-spacing:-0.02em; line-height:1.1; }
+  .wrap{ max-width:900px; margin:0 auto; padding:34px 20px 64px; }
+
+  header{ text-align:center; margin-bottom:24px; }
+  .eyebrow{
+    font-size:12px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px;
+  }
+  h1{ font-size:clamp(28px,6.4vw,46px); font-weight:900; letter-spacing:-0.025em; line-height:1.08; }
+  .kicker{ margin-top:10px; color:var(--text-2); font-size:clamp(15px,3.6vw,18px); }
+
+  .stage{ position:relative; }
+  .stage::before{
+    content:""; position:absolute; inset:-18px -10px -26px; border-radius:24px;
+    background:radial-gradient(60% 60% at 50% 45%, rgba(201,151,58,0.20), transparent 70%);
+    filter:blur(12px); z-index:0;
+  }
   .player{
-    position:relative; width:100%; aspect-ratio:16/9; background:#000;
-    border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,0.5);
+    position:relative; z-index:1; width:100%; aspect-ratio:16/9; background:#000;
+    border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 26px 60px rgba(0,0,0,0.55);
   }
   .player video{ width:100%; height:100%; display:block; background:#000; }
   .playbtn{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    width:clamp(62px,6vw,104px); height:clamp(62px,6vw,104px);
-    border-radius:50%; border:none; padding:0;
-    background:var(--gold); color:var(--navy);
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-    box-shadow:0 4px 14px rgba(0,0,0,0.3);
+    width:clamp(68px,9vw,96px); height:clamp(68px,9vw,96px);
+    border:none; border-radius:50%; padding:0; cursor:pointer; color:var(--navy);
+    background:linear-gradient(160deg, var(--gold-lt), var(--gold));
+    box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 0 10px rgba(201,151,58,0.16);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .16s ease, box-shadow .16s ease;
   }
-  .playbtn svg{ width:46%; height:46%; fill:currentColor; margin-left:6%; }
+  .playbtn:hover,.playbtn:focus-visible{
+    transform:translate(-50%,-50%) scale(1.06);
+    box-shadow:0 12px 34px rgba(0,0,0,0.55), 0 0 0 14px rgba(201,151,58,0.20); outline:none;
+  }
+  .playbtn svg{ width:42%; height:42%; fill:currentColor; margin-left:7%; }
   .playbtn.hide{ display:none; }
-  .heads-up{
-    margin:18px auto 0; max-width:620px; text-align:center;
-    font-size:16px; color:var(--text-2); font-style:italic;
-  }
 
-  /* Offer */
-  .offer{ display:none; margin-top:32px; padding-top:28px; border-top:1px solid var(--line); }
-  .offer.show{ display:block; animation:rise .5s ease-out; }
-  @keyframes rise{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
-  .offer h2{ text-align:center; font-size:clamp(22px,5vw,30px); font-weight:800; letter-spacing:-0.01em; margin-bottom:8px; }
-  .offer .sub{ text-align:center; color:var(--text-2); font-size:16px; margin-bottom:22px; }
+  .meta{
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px 18px;
+    margin-top:20px; font-size:14.5px; color:var(--text-3);
+  }
+  .meta span{ display:inline-flex; align-items:center; gap:8px; }
+  .meta span::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); }
+  .headsup{ margin:14px auto 0; max-width:560px; text-align:center; font-size:15.5px; color:var(--text-2); }
+
+  .offer{ display:none; margin-top:44px; }
+  .offer.show{ display:block; animation:rise .45s ease-out; }
+  @keyframes rise{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
+  .rule{ display:flex; align-items:center; gap:14px; color:var(--gold); margin-bottom:26px; }
+  .rule::before,.rule::after{ content:""; height:1px; flex:1; background:linear-gradient(90deg,transparent,var(--line),transparent); }
+  .rule span{ font-size:12px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; white-space:nowrap; }
+
+  .offer h2{ text-align:center; font-size:clamp(24px,5.4vw,34px); font-weight:900; letter-spacing:-0.02em; }
+  .offer .sub{ text-align:center; color:var(--text-2); font-size:16px; margin:8px auto 24px; max-width:520px; }
 
   .switch{
-    display:none; width:max-content; max-width:100%; margin:0 auto 24px;
-    padding:4px; border:1.5px solid var(--line); border-radius:999px; background:var(--navy-2);
+    display:none; width:max-content; max-width:100%; margin:0 auto 26px;
+    padding:5px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,0.03);
   }
   .switch.show{ display:flex; }
   .switch button{
-    font-family:inherit; font-size:15px; font-weight:600; color:var(--text-2);
-    background:transparent; border:none; border-radius:999px; padding:10px 20px; cursor:pointer;
+    font-family:inherit; font-size:14.5px; font-weight:700; color:var(--text-2);
+    background:transparent; border:none; border-radius:999px; padding:11px 18px; cursor:pointer;
+    transition:background .16s ease, color .16s ease;
   }
-  .switch button[aria-pressed="true"]{ background:var(--gold); color:var(--navy); }
+  .switch button[aria-pressed="true"]{ background:linear-gradient(160deg,var(--gold-lt),var(--gold)); color:var(--navy); }
   .switch button:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
 
-  .plans{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .plans{ display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch; }
   .plan{
-    border:1.5px solid var(--line); border-radius:14px; padding:22px 20px;
-    display:flex; flex-direction:column; background:rgba(255,255,255,0.02);
+    position:relative; display:flex; flex-direction:column;
+    border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:26px 22px 22px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
   }
-  .plan.primary{ border-color:var(--gold); background:var(--gold-soft); }
-  .plan h3{ font-size:20px; font-weight:800; margin-bottom:4px; }
-  .plan .what{ color:var(--text-2); font-size:15px; margin-bottom:14px; flex:1; }
-  .plan .price{ font-size:30px; font-weight:800; color:var(--gold); letter-spacing:-0.01em; }
-  .plan .per{ font-size:14px; color:var(--text-3); margin-bottom:16px; min-height:21px; }
+  .plan.primary{
+    border-color:var(--gold);
+    background:linear-gradient(180deg, rgba(201,151,58,0.16), rgba(201,151,58,0.04));
+    box-shadow:0 18px 44px rgba(0,0,0,0.35);
+  }
+  .tag{
+    position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+    font-size:11px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--navy); background:linear-gradient(160deg,var(--gold-lt),var(--gold));
+    padding:5px 12px; border-radius:999px; white-space:nowrap;
+  }
+  .plan h3{ font-size:21px; font-weight:800; letter-spacing:-0.01em; }
+  .plan .what{ color:var(--text-2); font-size:15px; margin:6px 0 18px; flex:1; }
+  .amount{ display:flex; align-items:baseline; gap:8px; }
+  .amount .num{ font-size:34px; font-weight:900; color:var(--gold); letter-spacing:-0.02em; line-height:1; }
+  .amount .unit{ font-size:14px; color:var(--text-3); }
+  .per{ font-size:13.5px; color:var(--text-3); margin:8px 0 18px; min-height:20px; }
   .buy{
-    display:block; text-align:center; text-decoration:none; font-weight:700; font-size:17px;
-    padding:15px 18px; border-radius:10px; border:1.5px solid var(--gold);
-    color:var(--gold); background:transparent; transition:background .18s ease, color .18s ease;
+    display:block; text-align:center; text-decoration:none; font-weight:800; font-size:17px;
+    padding:16px 18px; border-radius:11px; border:1.5px solid var(--gold); color:var(--gold);
+    background:transparent; transition:background .16s ease, color .16s ease, transform .16s ease;
   }
-  .plan.primary .buy{ background:var(--gold); color:var(--navy); }
-  .buy:hover, .buy:focus-visible{ background:var(--gold); color:var(--navy); outline:none; }
-  .fine{ text-align:center; font-size:14px; color:var(--text-3); margin-top:18px; min-height:21px; }
-  .help{ text-align:center; font-size:15px; color:var(--text-2); margin-top:10px; }
+  .plan.primary .buy{ background:linear-gradient(160deg,var(--gold-lt),var(--gold)); color:var(--navy); border-color:transparent; }
+  .buy:hover,.buy:focus-visible{ background:linear-gradient(160deg,var(--gold-lt),var(--gold)); color:var(--navy); transform:translateY(-1px); outline:none; }
 
-  @media (max-width:640px){
-    .wrap{ padding:18px 14px 44px; }
-    .plans{ grid-template-columns:1fr; }
-    .player{ border-radius:8px; }
+  .fine{ text-align:center; font-size:13.5px; color:var(--text-3); margin-top:20px; min-height:20px; }
+  .help{ text-align:center; font-size:15px; color:var(--text-2); margin-top:8px; }
+
+  @media (max-width:680px){
+    .wrap{ padding:24px 16px 48px; }
+    .plans{ grid-template-columns:1fr; gap:22px; }
+    .stage::before{ inset:-10px -6px -16px; }
   }
-  @media (prefers-reduced-motion:reduce){ .offer.show{ animation:none; } .buy{ transition:none; } }
+  @media (prefers-reduced-motion:reduce){
+    .offer.show{ animation:none; }
+    .playbtn,.buy{ transition:none; }
+  }
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -116,41 +161,51 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
 <body>
   <main class="wrap">
     <header>
-      <h1>Finally Running on Full</h1>
+      <div class="eyebrow">Finally Running on Full</div>
+      <h1>Feed your cells.<br>Get your energy back.</h1>
+      <p class="kicker">Press play and I'll walk you through it.</p>
     </header>
 
-    <div class="player">
-      <video id="evid" playsinline preload="metadata">
-        <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/evergreen-vmg.mp4" type="video/mp4">
-      </video>
-      <button class="playbtn" id="playbtn" type="button" aria-label="Play video">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </button>
+    <div class="stage">
+      <div class="player">
+        <video id="evid" playsinline preload="metadata">
+          <source src="https://pub-a1196e679b804aa58af30072cacd2378.r2.dev/evergreen-vmg.mp4" type="video/mp4">
+        </video>
+        <button class="playbtn" id="playbtn" type="button" aria-label="Play video">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
     </div>
 
-    <p class="heads-up" id="headsup">Ordering options appear below the video, with wholesale pricing when you purchase through this page.</p>
+    <div class="meta">
+      <span>About 24 minutes</span>
+      <span>Wholesale pricing on this page</span>
+    </div>
+    <p class="headsup" id="headsup">Ordering options appear below the video once I walk you through them.</p>
 
     <section class="offer" id="offer" aria-live="polite">
+      <div class="rule"><span>Ready when you are</span></div>
       <h2>Two ways to begin</h2>
       <p class="sub">Wholesale pricing when you purchase through this page.</p>
 
       <div class="switch" id="switch" role="group" aria-label="Order type">
-        <button type="button" data-mode="monthly" aria-pressed="true">Monthly (earn rewards)</button>
+        <button type="button" data-mode="monthly" aria-pressed="true">Monthly &middot; earn rewards</button>
         <button type="button" data-mode="once" aria-pressed="false">One-time</button>
       </div>
 
       <div class="plans">
         <div class="plan primary">
+          <div class="tag">Most complete</div>
           <h3>The Full System</h3>
           <p class="what">VMG+, EO Mega+, and PB Restore working together.</p>
-          <div class="price">$149.50</div>
+          <div class="amount"><span class="num">$149.50</span><span class="unit">wholesale</span></div>
           <div class="per" data-per></div>
           <a class="buy" id="buy-full" target="_blank" rel="noopener">Get The Full System</a>
         </div>
         <div class="plan">
           <h3>The Foundation</h3>
           <p class="what">Where it all starts. VMG+ on its own.</p>
-          <div class="price">$89.50</div>
+          <div class="amount"><span class="num">$89.50</span><span class="unit">wholesale</span></div>
           <div class="per" data-per></div>
           <a class="buy" id="buy-vmg" target="_blank" rel="noopener">Get The Foundation</a>
         </div>
@@ -164,10 +219,9 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
 <script>
 (function(){
   "use strict";
-  var REVEAL_AT = 1375; // 22:55 in the video
+  var REVEAL_AT = 1375; // 22:55
   var STORE_KEY = "frof_offer_seen";
 
-  // Charlie's links: used when someone registered without a leader link
   var DEFAULTS = {
     full: "https://link.doterra.com/HFULOR",
     vmg:  "https://link.doterra.com/Cy9C3p",
@@ -179,11 +233,9 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   var q = new URLSearchParams(window.location.search);
   function safe(u){ return (u && /^https:\/\//i.test(u)) ? u : ""; }
 
-  var ref = (q.get("ref") || "").toLowerCase();
-  var isTeam = ref === "team";
+  var isTeam = (q.get("ref") || "").toLowerCase() === "team";
 
-  var links;
-  var lf = safe(q.get("full_system_link")), lv = safe(q.get("vmg_link"));
+  var links, lf = safe(q.get("full_system_link")), lv = safe(q.get("vmg_link"));
   if (lf && lv) {
     var sf = safe(q.get("full_system_sub")), sv = safe(q.get("vmg_sub"));
     links = { full: lf, vmg: lv, fullSub: (sf && sv) ? sf : "", vmgSub: (sf && sv) ? sv : "",
@@ -211,7 +263,9 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     Array.prototype.forEach.call(sw.querySelectorAll("button"), function(b){
       b.setAttribute("aria-pressed", b.getAttribute("data-mode") === (monthly ? "monthly" : "once") ? "true" : "false");
     });
-    Array.prototype.forEach.call(pers, function(p){ p.textContent = monthly ? "per month, earning rewards points" : "one-time order"; });
+    Array.prototype.forEach.call(pers, function(p){
+      p.textContent = monthly ? "per month, earning rewards points" : "one-time order";
+    });
     fine.textContent = monthly
       ? "Monthly orders ship automatically through doTERRA Loyalty Rewards. Change or cancel anytime."
       : "";
@@ -231,6 +285,15 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
   buyFull.addEventListener("click", function(){ track("InitiateCheckout"); });
   buyVmg.addEventListener("click", function(){ track("InitiateCheckout"); });
 
+  var vid = document.getElementById("evid");
+  var playbtn = document.getElementById("playbtn");
+  playbtn.addEventListener("click", function(){
+    vid.setAttribute("controls","");
+    playbtn.classList.add("hide");
+    var p = vid.play(); if (p && p.catch) p.catch(function(){});
+  });
+  vid.addEventListener("play", function(){ vid.setAttribute("controls",""); playbtn.classList.add("hide"); });
+
   function reveal(){
     if (offer.classList.contains("show")) return;
     offer.classList.add("show");
@@ -239,28 +302,14 @@ src="https://www.facebook.com/tr?id=732118241730369&ev=PageView&noscript=1"
     track("ViewContent");
   }
 
-  var vid = document.getElementById("evid");
-  var playbtn = document.getElementById("playbtn");
-  playbtn.addEventListener("click", function(){
-    vid.setAttribute("controls", "");
-    playbtn.classList.add("hide");
-    var p = vid.play();
-    if (p && p.catch) p.catch(function(){});
-  });
-  vid.addEventListener("play", function(){ vid.setAttribute("controls",""); playbtn.classList.add("hide"); });
-
-  if (isTeam) {
-    headsup.style.display = "none";
-    return;
-  }
+  if (isTeam) { headsup.style.display = "none"; return; }
 
   var seen = false;
   try { seen = localStorage.getItem(STORE_KEY) === "1"; } catch(e){}
   if (seen) { offer.classList.add("show"); headsup.style.display = "none"; }
 
-  var v = document.getElementById("evid");
-  v.addEventListener("timeupdate", function(){ if (v.currentTime >= REVEAL_AT) reveal(); });
-  v.addEventListener("ended", reveal);
+  vid.addEventListener("timeupdate", function(){ if (vid.currentTime >= REVEAL_AT) reveal(); });
+  vid.addEventListener("ended", reveal);
 })();
 </script>
 </body>
